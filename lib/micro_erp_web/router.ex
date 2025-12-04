@@ -17,13 +17,18 @@ defmodule MicroErpWeb.Router do
   scope "/", MicroErpWeb do
     pipe_through :browser
 
-    get "/", PageController, :home
+    # get("/", PageController)
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", MicroErpWeb do
-  #   pipe_through :api
-  # end
+  scope "/api", MicroErpWeb do
+    pipe_through :api
+
+    resources "/categorias", CategoriaController, except: [:new, :edit]
+    resources "/fornecedores", FornecedorController, except: [:new, :edit]
+    resources "/produtos", ProdutoController, except: [:new, :edit]
+    resources "/movimentacoes", MovimentacaoController, except: [:new, :edit]
+  end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
   if Application.compile_env(:micro_erp, :dev_routes) do
