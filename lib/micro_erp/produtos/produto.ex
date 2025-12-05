@@ -18,8 +18,8 @@ defmodule MicroErp.Produtos.Produto do
   @doc false
   def changeset(produto, attrs) do
     produto
-    |> cast(attrs, [:nome, :sku, :preco, :saldo_atual])
-    |> validate_required([:nome, :sku, :preco, :saldo_atual])
+    |> cast(attrs, [:nome, :sku, :preco, :saldo_atual, :categoria_id, :fornecedor_id])
+    |> validate_required([:nome, :sku, :preco, :saldo_atual, :categoria_id, :fornecedor_id])
     |> unique_constraint(:sku)
   end
 end

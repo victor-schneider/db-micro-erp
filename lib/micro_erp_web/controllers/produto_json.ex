@@ -20,7 +20,7 @@ defmodule MicroErpWeb.ProdutoJSON do
       id: produto.id,
       nome: produto.nome,
       sku: produto.sku,
-      preco: produto.preco,
+      preco: Decimal.to_float(produto.preco),
       saldo_atual: produto.saldo_atual
     }
   end

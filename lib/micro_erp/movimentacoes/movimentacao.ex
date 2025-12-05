@@ -16,7 +16,7 @@ defmodule MicroErp.Movimentacoes.Movimentacao do
   @doc false
   def changeset(movimentacao, attrs) do
     movimentacao
-    |> cast(attrs, [:tipo, :quantidade, :data_hora, :observacao, :references])
-    |> validate_required([:tipo, :quantidade, :data_hora, :observacao, :references])
+    |> cast(attrs, [:tipo, :quantidade, :data_hora, :observacao, :produto_id])
+    |> validate_required([:tipo, :quantidade, :data_hora, :observacao, :produto_id])
   end
 end
