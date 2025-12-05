@@ -6,8 +6,7 @@ defmodule MicroErp.Fornecedores.Fornecedor do
     field :nome, :string
     field :cnpj, :string
     field :contato, :string
-    has_many :produtos, MicroErp.Produtos.Produto
-
+    many_to_many :produtos, MicroErp.Produtos.Produto, join_through: "fornecedor_produto"
     timestamps(type: :utc_datetime)
   end
 

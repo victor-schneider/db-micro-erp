@@ -17,6 +17,7 @@ defmodule MicroErp.Produtos do
       [%Produto{}, ...]
 
   """
+  # SELECT p0."id", p0."nome", p0."sku", p0."preco", p0."saldo_atual", p0."inserted_at", p0."updated_at" FROM "produtos" AS p0 []
   def list_produtos do
     Repo.all(Produto)
   end
@@ -35,6 +36,7 @@ defmodule MicroErp.Produtos do
       ** (Ecto.NoResultsError)
 
   """
+  # SELECT p0."id", p0."nome", p0."sku", p0."preco", p0."saldo_atual", p0."inserted_at", p0."updated_at" FROM "produtos" AS p0 WHERE (p0."id" = ?) [6]
   def get_produto!(id), do: Repo.get!(Produto, id)
 
   @doc """
@@ -49,6 +51,7 @@ defmodule MicroErp.Produtos do
       {:error, %Ecto.Changeset{}}
 
   """
+  # INSERT INTO "produtos" ("nome","preco","saldo_atual","sku","inserted_at","updated_at") VALUES (?1,?2,?3,?4,?5,?6) RETURNING "id" ["Papel Higineico", Decimal.new("10.99"), 20, "E9DjKJSr8t25k", ~U[2025-12-05 01:11:25Z], ~U[2025-12-05 01:11:25Z]]
   def create_produto(attrs \\ %{}) do
     %Produto{}
     |> Produto.changeset(attrs)
@@ -67,6 +70,7 @@ defmodule MicroErp.Produtos do
       {:error, %Ecto.Changeset{}}
 
   """
+  # UPDATE "produtos" SET "nome" = ?, "updated_at" = ? WHERE "id" = ? ["Papel Higineico Super Forte", ~U[2025-12-05 01:11:54Z], 6]
   def update_produto(%Produto{} = produto, attrs) do
     produto
     |> Produto.changeset(attrs)
@@ -85,8 +89,15 @@ defmodule MicroErp.Produtos do
       {:error, %Ecto.Changeset{}}
 
   """
+  # DELETE FROM "produtos" WHERE "id" = ? [6]
   def delete_produto(%Produto{} = produto) do
-    Repo.delete(produto)
+    produto
+    |> Ecto.Changeset.change()
+    |> Ecto.Changeset.foreign_key_constraint(:movimentacoes,
+      name: "movimentacoes_produto_id_fkey",
+      message: "Não é possível excluir este produto pois ele possui movimentações registradas."
+    )
+    |> Repo.delete()
   end
 
   @doc """

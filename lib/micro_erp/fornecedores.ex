@@ -17,6 +17,7 @@ defmodule MicroErp.Fornecedores do
       [%Fornecedor{}, ...]
 
   """
+  # SELECT f0."id", f0."nome", f0."cnpj", f0."contato", f0."inserted_at", f0."updated_at" FROM "fornecedores" AS f0 []
   def list_fornecedores do
     Repo.all(Fornecedor)
   end
@@ -35,6 +36,7 @@ defmodule MicroErp.Fornecedores do
       ** (Ecto.NoResultsError)
 
   """
+  # SELECT f0."id", f0."nome", f0."cnpj", f0."contato", f0."inserted_at", f0."updated_at" FROM "fornecedores" AS f0 WHERE (f0."id" = ?) [3]
   def get_fornecedor!(id), do: Repo.get!(Fornecedor, id)
 
   @doc """
@@ -49,6 +51,7 @@ defmodule MicroErp.Fornecedores do
       {:error, %Ecto.Changeset{}}
 
   """
+  # INSERT INTO "fornecedores" ("nome","cnpj","contato","inserted_at","updated_at") VALUES (?1,?2,?3,?4,?5) RETURNING "id" ["Roberto Industrias", "13.504.731/0001-16", "contato@robertoindustrias.com.br", ~U[2025-12-05 01:06:32Z], ~U[2025-12-05 01:06:32Z]]
   def create_fornecedor(attrs \\ %{}) do
     %Fornecedor{}
     |> Fornecedor.changeset(attrs)
@@ -67,6 +70,7 @@ defmodule MicroErp.Fornecedores do
       {:error, %Ecto.Changeset{}}
 
   """
+  # UPDATE "fornecedores" SET "nome" = ?, "updated_at" = ? WHERE "id" = ? ["Roberto Industrias LTDA", ~U[2025-12-05 01:07:22Z], 3]
   def update_fornecedor(%Fornecedor{} = fornecedor, attrs) do
     fornecedor
     |> Fornecedor.changeset(attrs)
@@ -85,6 +89,7 @@ defmodule MicroErp.Fornecedores do
       {:error, %Ecto.Changeset{}}
 
   """
+  # DELETE FROM "fornecedores" WHERE "id" = ? [3]
   def delete_fornecedor(%Fornecedor{} = fornecedor) do
     Repo.delete(fornecedor)
   end

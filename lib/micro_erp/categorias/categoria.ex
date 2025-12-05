@@ -5,7 +5,7 @@ defmodule MicroErp.Categorias.Categoria do
   schema "categorias" do
     field :nome, :string
     field :descricao, :string
-    has_many :produto, MicroErp.Produtos.Produto
+    many_to_many :produtos, MicroErp.Produtos.Produto, join_through: "categoria_produto"
     timestamps(type: :utc_datetime)
   end
 
